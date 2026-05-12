@@ -20,7 +20,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ArSync"
+rootProject.name = "ars-music"
 
 include(":app")
 include(":core")

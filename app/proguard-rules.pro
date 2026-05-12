@@ -1,4 +1,4 @@
-# ArSync ProGuard / R8 rules
+# ars-music ProGuard / R8 rules
 
 # Keep application class
 -keep class com.ars.arsync.ArSyncApp { *; }

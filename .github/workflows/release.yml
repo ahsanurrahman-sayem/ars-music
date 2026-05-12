@@ -23,26 +23,8 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       # Decode keystore from base64 secret
-      - name: Decode keystore
-        run: |
-          mkdir -p app/keystore
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/keystore/arsync.jks
-
       - name: Build release APK
-        env:
-          KEYSTORE_PATH: keystore/arsync.jks
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: ./gradlew assembleRelease
-
-      - name: Build release AAB (Play Store)
-        env:
-          KEYSTORE_PATH: keystore/arsync.jks
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew bundleRelease
 
       - name: Extract version name
         id: version
@@ -53,7 +35,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: ArSync ${{ steps.version.outputs.version }}
+          name: ars-music ${{ steps.version.outputs.version }}
           tag_name: ${{ github.ref_name }}
           draft: false
           prerelease: ${{ contains(github.ref_name, '-beta') || contains(github.ref_name, '-alpha') }}
@@ -61,7 +43,7 @@ jobs:
             app/build/outputs/apk/release/app-release.apk
             app/build/outputs/bundle/release/app-release.aab
           body: |
-            ## ArSync ${{ steps.version.outputs.version }}
+            ## ars-music ${{ steps.version.outputs.version }}
 
             ### Installation
             Download `app-release.apk` and install directly on your Android device.
@@ -79,7 +61,7 @@ jobs:
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: arsync-release-${{ steps.version.outputs.version }}
+          name: ars-music-release-${{ steps.version.outputs.version }}
           path: |
             app/build/outputs/apk/release/app-release.apk
             app/build/outputs/bundle/release/app-release.aab
