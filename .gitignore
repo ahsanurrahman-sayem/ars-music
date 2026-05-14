@@ -1,0 +1,19 @@
+*.iml
+.gradle/
+local.properties
+.idea/
+.DS_Store
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+*.jks
+keystore/
+*.apk
+*.aab
+*.ap_
+*.dex
+arc.md
+con.md
+# Proguard
+proguard/
