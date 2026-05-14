@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-//  alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -45,16 +45,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-
-        freeCompilerArgs += listOf(
-            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-            "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-        )
-    }
-
     buildFeatures {
         compose = true
         buildConfig = true
@@ -72,6 +62,12 @@ android {
     }
 }
 
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
+}
+
 dependencies {
     implementation(project(":core"))
     implementation(project(":domain"))
@@ -82,22 +78,7 @@ dependencies {
     implementation(project(":background-service"))
     implementation(project(":shared-utils"))
 
-    implementation(libs.bundles.compose)
-    implementation(libs.bundles.lifecycle)
-
-    implementation(libs.navigation.compose)
-
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.splashscreen)
-    implementation(libs.androidx.work.runtime.ktx)
 
-    implementation(libs.coil.compose)
-    implementation(libs.palette)
-    implementation(libs.timber)
-
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(libs.compose.ui.test.manifest)
-
-    testImplementation(libs.bundles.testing.unit)
-    androidTestImplementation(libs.bundles.testing.android)
+    debugImplementation(libs.androidx.ui.tooling)
 }
